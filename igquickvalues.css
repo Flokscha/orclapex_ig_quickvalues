@@ -20,3 +20,6 @@
 .igquickvalues-group a {
   flex:1 0 auto;
 }
+.hideEmpty:empty {
+  display:none; 
+}
