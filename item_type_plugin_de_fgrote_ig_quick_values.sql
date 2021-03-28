@@ -28,7 +28,7 @@ prompt APPLICATION 108 - digiBILZ 2.0
 -- Application Export:
 --   Application:     108
 --   Name:            digiBILZ 2.0
---   Date and Time:   19:45 Sunday March 28, 2021
+--   Date and Time:   20:22 Sunday March 28, 2021
 --   Exported By:     GROTE_DBA
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -141,6 +141,7 @@ wwv_flow_api.create_plugin(
 '<br>',
 '<p>A seperated String becomes a list of Values that sets a different Columns Value.</p>'))
 ,p_version_identifier=>'1.0.0'
+,p_about_url=>'https://github.com/Flokscha/orclapex_ig_quickvalues'
 ,p_files_version=>38
 );
 wwv_flow_api.create_plugin_attribute(

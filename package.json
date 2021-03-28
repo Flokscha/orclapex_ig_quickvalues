@@ -10,7 +10,7 @@
     "apex"
   ],
   "author": "Florian grote",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/jquery": "^3.5.5"
   }
