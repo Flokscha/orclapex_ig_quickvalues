@@ -1,0 +1,17 @@
+{
+  "name": "ig-quick-values",
+  "version": "1.0.0",
+  "description": "Oracle Apex Plugin Item for Interactive Grids. Uses Seperated String to create Anchors to set Column Values",
+  "main": "igquickvalues.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "apex"
+  ],
+  "author": "Florian grote",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jquery": "^3.5.5"
+  }
+}
