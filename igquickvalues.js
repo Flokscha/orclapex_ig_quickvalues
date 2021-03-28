@@ -1,9 +1,6 @@
 var de_fgrote_ig_quick_values = (function (a) {
-  // console.debug('Export Parameter a: ', a) // 2 Funktionen mit den 3 Parametern
 
   function b(d) {
-    // console.debug('Export function b parameter d: ', d) // Ein index zum Export
-    // console.debug('Export function b parameter c: ', c) // Objekt mit Index und der exportierten Funktion (init)
     if (c[d]) return c[d].exports
     var e = (c[d] = { i: d, l: false, exports: {} })
     return a[d].call(e.exports, e, e.exports, b), (e.l = true), e.exports
@@ -35,13 +32,11 @@ var de_fgrote_ig_quick_values = (function (a) {
       return Object.prototype.hasOwnProperty.call(a, b)
     }),
     (b.p = ''),
-    // console.debug('Export return b: ', b), // inefach die obere Funktion
     b((b.s = 0))
   )
 })([
   function (a, b, c) {
     a.exports = c(1)
-    // console.debug('Export call 1 parameter a b c: ', a, b, c) // a export objekt, b export Funktion only, c = B funktion
   },
   function (a, b, c) {
     'use strict'
@@ -49,34 +44,9 @@ var de_fgrote_ig_quick_values = (function (a) {
       c.d(b, 'init', function () {
         return createPluginItem
       })
-    // console.debug('Export call 2 parameter a b c: ', a, b, c) // a export objekt, b export Funktion only, c = B funktion
-    /**
-     * @author Rafael Trevisan <rafael@trevis.ca>
-     * @license
-     * Copyright (c) 2018 Rafael Trevisan
-     *
-     * Permission is hereby granted, free of charge, to any person obtaining a copy
-     * of this software and associated documentation files (the 'Software'), to deal
-     * in the Software without restriction, including without limitation the rights
-     * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-     * copies of the Software, and to permit persons to whom the Software is
-     * furnished to do so, subject to the following players:
-     *
-     * The above copyright notice and this permission notice shall be included in all
-     * copies or substantial portions of the Software.
-     *
-     * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-     * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-     * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-     * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-     * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-     * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-     * SOFTWARE.
-     */
 
     const createPluginItem = (itemID, itemJSON) => {
       const {
-        // destructering JSON
         readOnly: readOnly,
         seperator: seperator,
         column: column,
@@ -86,16 +56,15 @@ var de_fgrote_ig_quick_values = (function (a) {
 
       let itemIdx = 0
 
-      const pluginname = 'igquickvalues' // Plugin Name zur einheitlichen Erstellung von Variablen
-      /* CSS Variablen */
-      const CSSpluginClass = pluginname // Markiert Plugin Dom Elemente
-      const CSSpluginClassGroup = pluginname + '-group' // Parent mit bis zu mehreren Items
-      const CSSpluginClassItem = pluginname + '-item' // Einzelnes Item
-      const CSSpluginClassEnabled = pluginname + '-enabled' // Enabled State
-      const CSSpluginClassDisabled = pluginname + '-disabled' // Disabled State
+      const pluginname = 'igquickvalues'
+      /* CSS Variables */
+      const CSSpluginClass = pluginname // Marks Plugin DOM elements
+      const CSSpluginClassGroup = pluginname + '-group' // Parent Element class that groups the anchors
+      const CSSpluginClassItem = pluginname + '-item'
+      const CSSpluginClassEnabled = pluginname + '-enabled'
+      const CSSpluginClassDisabled = pluginname + '-disabled'
 
       const pluginItem$ = $(`#${itemID}`)
-      // console.debug('pluginItem$', pluginItem$)
 
       const getDisplayItemMarkup = (bool, value) => {
         const html = apex.util.htmlBuilder()
@@ -104,7 +73,7 @@ var de_fgrote_ig_quick_values = (function (a) {
         // Wrapping DIV
         html
           .markup('<div')
-          .attr('class', `${CSSpluginClass} ${CSSpluginClassGroup}`) //TODO Irgendeine Native Klasse?
+          .attr('class', `${CSSpluginClass} ${CSSpluginClassGroup}`)
           .markup('>')
         // Multiple Anchors
         for (let x = 0; x < values.length; x++) {
@@ -122,40 +91,29 @@ var de_fgrote_ig_quick_values = (function (a) {
             .markup('</a>')
           itemIdx += 1
         }
-        // console.debug('getDisplayItemMarkup:', html)
         return html.toString()
       }
 
       const saveValueToGridModel = (jqueryItem$) => {
-        // console.debug('saveValueToGridModel: jqueryItem$:', jqueryItem$)
-        // Spechert den Wert ins IG Grid Model
         const recordID = jqueryItem$.closest('tr').data('id')
-        // console.debug('saveValueToGridModel: recordID:', recordID)
 
         const regionID = $(jqueryItem$.parents('.a-IG')).attr('id').slice(0, -3) //Region Static ID
-        // console.debug('saveValueToGridModel: regionID:', regionID)
 
         const regionWidget = apex.region(regionID).widget()
-        // console.debug('saveValueToGridModel: regionWidget:', regionWidget)
 
         const { model: gridModel } = regionWidget.interactiveGrid(
           'getViews',
           'grid'
         )
-        // console.debug('saveValueToGridModel: gridModel:', gridModel)
 
         const record = gridModel.getRecord(recordID)
-        // console.debug('saveValueToGridModel: record:', record)
 
         gridModel.setValue(record, column, jqueryItem$.text())
-        // console.debug('saveValueToGridModel: item Value:', jqueryItem$.text())
       }
 
       // Add Event Handler for Click on Anchors
-      // Nicht die beste Lösung
+      // Probalby not the best solution
       pluginItem$.parents('div[id*="_ig"]').on("click", `.${CSSpluginClass} a`, (e) => {
-        // console.debug("click event for plugin: ", e)
-
         // Set Value from Anchor to Grid Column
         const anchorBtn$ = $(e.currentTarget)
         saveValueToGridModel(anchorBtn$)
@@ -169,7 +127,7 @@ var de_fgrote_ig_quick_values = (function (a) {
           .addClass(CSSpluginClassEnabled)
       }
 
-      // create an Apex Item
+      // create Apex Item
       apex.item.create(itemID, {
         setValue(value) {
           pluginItem$.val(value)

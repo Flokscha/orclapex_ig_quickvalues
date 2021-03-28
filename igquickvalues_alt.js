@@ -1,3 +1,9 @@
+/**
+ * Alternative version with 20.1 apex.item.attachHandler
+ * Only for developing and testing purposes
+ * @param {jQuery} context 
+ */
+
 const createPluginItem = (context) => {
   let itemIdx = 0
 
@@ -24,7 +30,7 @@ const createPluginItem = (context) => {
     // Wrapping DIV
     html
       .markup('<div')
-      .attr('class', `${CSSpluginClass} ${CSSpluginClassGroup}`) //TODO Irgendeine Native Klasse?
+      .attr('class', `${CSSpluginClass} ${CSSpluginClassGroup}`)
       .markup('>')
     // Multiple Anchors
     for (let x = 0; x < values.length; x++) {
@@ -33,7 +39,7 @@ const createPluginItem = (context) => {
       html
         .markup('<a')
         .attr('id', `${itemID}_${itemIdx}_0`)
-        .attr('class', 'notEmpty a-Button u-info-text') // Style Button with Link Color
+        .attr('class', 'notEmpty a-Button u-info-text')
         .attr('tabindex', -1)
         .optionalAttr('disabled', readOnly)
         .markup('>')
@@ -46,36 +52,27 @@ const createPluginItem = (context) => {
   }
 
   const saveValueToGridModel = (jqueryItem$) => {
-    // console.debug('saveValueToGridModel: jqueryItem$:', jqueryItem$)
-    // Spechert den Wert ins IG Grid Model
     const recordID = jqueryItem$.closest('tr').data('id')
-    // console.debug('saveValueToGridModel: recordID:', recordID)
 
     const regionID = $(jqueryItem$.parents('.a-IG')).attr('id').slice(0, -3) //Region Static ID
-    // console.debug('saveValueToGridModel: regionID:', regionID)
 
     const regionWidget = apex.region(regionID).widget()
-    // console.debug('saveValueToGridModel: regionWidget:', regionWidget)
 
     const { model: gridModel } = regionWidget.interactiveGrid(
       'getViews',
       'grid'
     )
-    // console.debug('saveValueToGridModel: gridModel:', gridModel)
 
     const record = gridModel.getRecord(recordID)
-    // console.debug('saveValueToGridModel: record:', record)
 
     gridModel.setValue(record, column, jqueryItem$.text())
-    // console.debug('saveValueToGridModel: item Value:', jqueryItem$.text())
   }
 
   // Add Event Handler for Click on Anchors
-  // Nicht die beste Lösung
+  // probably not the best solution
   pluginItem$
     .parents('div[id*="_ig"]')
     .on('click', `.${CSSpluginClass} a`, (e) => {
-      // console.debug("click event for plugin: ", e)
 
       // Set Value from Anchor to Grid Column
       const anchorBtn$ = $(e.currentTarget)
@@ -90,7 +87,7 @@ const createPluginItem = (context) => {
       .addClass(CSSpluginClassEnabled)
   }
 
-  // create an Apex Item
+  // create Apex Item
   apex.item.create(itemID, {
     setValue(value) {
       pluginItem$.val(value)
